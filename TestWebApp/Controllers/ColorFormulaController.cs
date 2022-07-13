@@ -18,6 +18,7 @@ namespace TestWebApp.Controllers
         // GET: ColorFormula
         public ActionResult Index()
         {
+            Console.WriteLine("tatfdgsf");
             return View(db.ColorFormulas.ToList());
         }
 
