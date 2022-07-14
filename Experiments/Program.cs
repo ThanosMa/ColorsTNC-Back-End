@@ -10,6 +10,7 @@ namespace Experiments
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Kalispera ir8a");
         }
     }
 }
