@@ -15,5 +15,10 @@ namespace RepositoryServices.Persistance.Repositories
         {
 
         }
+
+        //public IEnumerable<ColorFormula> GetAllWithProducts()
+        //{
+        //    return db.ColorFormulas.Include(x => x.Products).ToList();
+        //}
     }
 }

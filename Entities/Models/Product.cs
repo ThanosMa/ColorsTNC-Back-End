@@ -11,6 +11,14 @@ namespace Entities.Models
     {
         public int Id { get; set; }
         public string Brand { get; set; }
-        //public ProductType ProductType { get; set; }
+        public string ColorCode { get; set; }
+        public double UsedQuantity { get; set; }
+        public DateTime ExpDate { get; set; }
+        public double TubeQuantity { get; set; }
+        // public double TotalQuantity { get; set; }
+
+       
+        
+      // public ColorFormula ColorFormula { get; set; }
     }
 }

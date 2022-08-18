@@ -2,128 +2,140 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Web.Http.Description;
 using Entities.Models;
 using MyDatabase;
+using RepositoryServices.Persistance;
 
 namespace TestWebApp.Controllers
 {
-    public class ColorFormulaController : Controller
+    [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    public class ColorFormulaController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private UnitOfWork unit;
 
-        // GET: ColorFormula
-        public ActionResult Index()
+        public ColorFormulaController()
         {
-            Console.WriteLine("tatfdgsf");
-            return View(db.ColorFormulas.ToList());
+            unit = new UnitOfWork(db);
         }
 
-        // GET: ColorFormula/Details/5
-        public ActionResult Details(int? id)
+        // GET: api/ColorFormula
+        public object GetColorFormulas()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ColorFormula colorFormula = db.ColorFormulas.Find(id);
+            var colorFormulas = unit.ColorFormulas.GetAll();
+            return colorFormulas;
+        }
+
+        // GET: api/ColorFormula/5
+        [ResponseType(typeof(ColorFormula))]
+        public IHttpActionResult GetColorFormula(int id)
+        {
+            ColorFormula colorFormula = unit.ColorFormulas.GetById(id);
             if (colorFormula == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(colorFormula);
+
+            return Ok(colorFormula);
         }
 
-        // GET: ColorFormula/Create
-        public ActionResult Create()
+        // PUT: api/ColorFormula/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutColorFormula(int id, ColorFormula colorFormula)
         {
-            return View();
-        }
-
-        // POST: ColorFormula/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreationDate")] ColorFormula colorFormula)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.ColorFormulas.Add(colorFormula);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return BadRequest(ModelState);
             }
 
-            return View(colorFormula);
+            if (id != colorFormula.ColorFormulaID)
+            {
+                return BadRequest();
+            }
+
+            unit.ColorFormulas.Update(colorFormula);
+
+            try
+            {
+                unit.Complete();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ColorFormulaExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: ColorFormula/Edit/5
-        public ActionResult Edit(int? id)
+        // POST: api/ColorFormula
+
+        [ResponseType(typeof(ColorFormula))]
+        public IHttpActionResult PostColorFormula(ColorFormula colorFormula)
         {
-            if (id == null)
+            var file = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
+            if (file != null && file.ContentLength > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(HttpContext.Current.Server.MapPath("~/Image"), fileName);
+                file.SaveAs(path);
             }
-            ColorFormula colorFormula = db.ColorFormulas.Find(id);
+
+            colorFormula.CreationDate = DateTime.Now;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            unit.ColorFormulas.Insert(colorFormula);
+            unit.Complete();
+
+            return CreatedAtRoute("DefaultApi", new { id = colorFormula.ColorFormulaID }, colorFormula);
+        }
+
+        // DELETE: api/ColorFormula/5
+        [ResponseType(typeof(ColorFormula))]
+        public IHttpActionResult DeleteColorFormula(int id)
+        {
+            ColorFormula colorFormula = unit.ColorFormulas.GetById(id);
             if (colorFormula == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(colorFormula);
-        }
 
-        // POST: ColorFormula/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreationDate")] ColorFormula colorFormula)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(colorFormula).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(colorFormula);
-        }
+            unit.ColorFormulas.Delete(colorFormula.ColorFormulaID);
+            unit.Complete();
 
-        // GET: ColorFormula/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ColorFormula colorFormula = db.ColorFormulas.Find(id);
-            if (colorFormula == null)
-            {
-                return HttpNotFound();
-            }
-            return View(colorFormula);
-        }
-
-        // POST: ColorFormula/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ColorFormula colorFormula = db.ColorFormulas.Find(id);
-            db.ColorFormulas.Remove(colorFormula);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return Ok(colorFormula);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                unit.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool ColorFormulaExists(int id)
+        {
+            return unit.ColorFormulas.GetAll().Count(e => e.ColorFormulaID == id) > 0;
         }
     }
 }
