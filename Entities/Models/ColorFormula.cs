@@ -12,14 +12,7 @@ namespace Entities.Models
         public int ColorFormulaID { get; set; }
         public string FormulaName { get; set; }
         public DateTime CreationDate { get; set; }
-        public string Duration { get; set; }
-        public double Cost { get; set; }
-        public string ServiceType { get; set; } //Enum 
-        //List of photos
-        
-  
-      
-        //nav prop
-       // public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+        //public List<int> ProductIds { get; set; }
+        //public string Brand { get; set; }
     }
 }
