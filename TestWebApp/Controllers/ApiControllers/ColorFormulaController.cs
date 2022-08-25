@@ -14,6 +14,7 @@ using System.Web.Http.Description;
 using Entities.Models;
 using MyDatabase;
 using RepositoryServices.Persistance;
+using TestWebApp.Dtos;
 
 namespace TestWebApp.Controllers
 {
@@ -29,9 +30,20 @@ namespace TestWebApp.Controllers
         }
 
         // GET: api/ColorFormula
-        public object GetColorFormulas()
-        {
-            var colorFormulas = unit.ColorFormulas.GetAll();
+        public IEnumerable<object> GetColorFormulas()
+        {    
+            
+            var colorFormulas = unit.ColorFormulas.GetAll().Select(x => new 
+            {
+                ColorFormulaID = x.ColorFormulaID,
+                FormulaName = x.FormulaName,
+                CreationDate = x.CreationDate,
+                Duration = x.Duration,
+                Cost = x.Cost,
+                ServiceType = x.ServiceType,
+                Products = x.Products?.Select(y=> new { Brand = y?.Brand})
+              
+            });
             return colorFormulas;
         }
 
@@ -63,6 +75,7 @@ namespace TestWebApp.Controllers
             }
 
             unit.ColorFormulas.Update(colorFormula);
+            //db.Entry(colorFormula).State = EntityState.Modified;
 
             try
             {
@@ -88,20 +101,26 @@ namespace TestWebApp.Controllers
         [ResponseType(typeof(ColorFormula))]
         public IHttpActionResult PostColorFormula(ColorFormula colorFormula)
         {
-            var file = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
-            if (file != null && file.ContentLength > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(HttpContext.Current.Server.MapPath("~/Image"), fileName);
-                file.SaveAs(path);
-            }
-
-            colorFormula.CreationDate = DateTime.Now;
+            //var file = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
+            //if (file != null && file.ContentLength > 0)
+            //{
+            //    var fileName = Path.GetFileName(file.FileName);
+            //    var path = Path.Combine(HttpContext.Current.Server.MapPath("~/Image"), fileName);
+            //    file.SaveAs(path);
+            //}
+            //ColorFormula colorFormula = new ColorFormula();
+            //colorFormula.ColorFormulaID = dto.Id;
+            //colorFormula.FormulaName = dto.FormulaName;
+            //colorFormula.CreationDate = DateTime.Now;
+            //colorFormula.Duration = dto.Duration;
+            //colorFormula.Cost = dto.Cost;
+            //colorFormula.ServiceType = dto.ServiceType;
+            //colorFormula.Products = dto?.Products;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
+
             unit.ColorFormulas.Insert(colorFormula);
             unit.Complete();
 

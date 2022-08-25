@@ -12,7 +12,14 @@ namespace Entities.Models
         public int ColorFormulaID { get; set; }
         public string FormulaName { get; set; }
         public DateTime CreationDate { get; set; }
-        //public List<int> ProductIds { get; set; }
+        public double Cost { get; set; }
+        public string Duration { get; set; }
+        public string ServiceType { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
         //public string Brand { get; set; }
+
+
+       
     }
 }

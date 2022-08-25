@@ -35,7 +35,7 @@ namespace RepositoryServices.Persistance
 
         public void Insert(T obj)
         {
-            //db.Entry(obj).State = EntityState.Added;//
+          //  db.Entry(obj).State = EntityState.Added;//
             table.Add(obj);
         }
 
@@ -53,6 +53,7 @@ namespace RepositoryServices.Persistance
 
         public void Save()
         {
+
             db.SaveChanges();
         }
 

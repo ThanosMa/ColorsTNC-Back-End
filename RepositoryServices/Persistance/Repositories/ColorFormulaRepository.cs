@@ -11,14 +11,12 @@ namespace RepositoryServices.Persistance.Repositories
 {
     public class ColorFormulaRepository:GenericRepository<ColorFormula>, IColorFormulaRepository
     {
+        
         public ColorFormulaRepository(ApplicationDbContext context): base(context)
         {
 
         }
 
-        //public IEnumerable<ColorFormula> GetAllWithProducts()
-        //{
-        //    return db.ColorFormulas.Include(x => x.Products).ToList();
-        //}
+      
     }
 }
