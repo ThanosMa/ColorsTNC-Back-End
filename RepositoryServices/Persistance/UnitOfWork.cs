@@ -19,11 +19,13 @@ namespace RepositoryServices.Persistance
             ColorFormulas = new ColorFormulaRepository(context);
             Customers = new CustomerRepository(context);
             Products = new ProductRepository(context);
+            ImageFormulas = new ImageFormulaRepository(context);
         }
 
         public IColorFormulaRepository ColorFormulas { get; private set; }
         public ICustomerRepository Customers { get; private set; }
         public IProductRepository Products { get; private set; }
+        public IImageRepository ImageFormulas { get; private set; }
 
         public int Complete()
         {

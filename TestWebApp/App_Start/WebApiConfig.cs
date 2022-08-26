@@ -10,12 +10,12 @@ namespace TestWebApp
         public static void Register(HttpConfiguration config)
         {
 
-            //config.Formatters.JsonFormatter
-            //.SerializerSettings
-            //.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            // Web API configuration and services
+            config.Formatters.JsonFormatter
+            .SerializerSettings
+            .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            //Web API configuration and services
 
-            // Web API routes
+            //Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

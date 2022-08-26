@@ -13,6 +13,7 @@ namespace RepositoryServices.Core
         ICustomerRepository Customers { get; }
         IColorFormulaRepository ColorFormulas { get; }
         IProductRepository Products { get; }
+        IImageRepository ImageFormulas { get; }
 
         int Complete();
     }

@@ -24,9 +24,11 @@ namespace TestWebApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private UnitOfWork unit;
 
+
         public ColorFormulaController()
         {
             unit = new UnitOfWork(db);
+
         }
 
         // GET: api/ColorFormula
@@ -38,9 +40,11 @@ namespace TestWebApp.Controllers
                 ColorFormulaID = x.ColorFormulaID,
                 FormulaName = x.FormulaName,
                 CreationDate = x.CreationDate,
-                Duration = x.Duration,
                 Cost = x.Cost,
+                Duration = x.Duration,
                 ServiceType = x.ServiceType,
+                FormulasPhotosid = x.FormulasPhotosid,
+                FormulasPhotosUrl=x.FormulasPhotosUrl,
                 Products = x.Products?.Select(y=> new { Brand = y?.Brand})
               
             });
@@ -101,21 +105,8 @@ namespace TestWebApp.Controllers
         [ResponseType(typeof(ColorFormula))]
         public IHttpActionResult PostColorFormula(ColorFormula colorFormula)
         {
-            //var file = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
-            //if (file != null && file.ContentLength > 0)
-            //{
-            //    var fileName = Path.GetFileName(file.FileName);
-            //    var path = Path.Combine(HttpContext.Current.Server.MapPath("~/Image"), fileName);
-            //    file.SaveAs(path);
-            //}
-            //ColorFormula colorFormula = new ColorFormula();
-            //colorFormula.ColorFormulaID = dto.Id;
-            //colorFormula.FormulaName = dto.FormulaName;
-            //colorFormula.CreationDate = DateTime.Now;
-            //colorFormula.Duration = dto.Duration;
-            //colorFormula.Cost = dto.Cost;
-            //colorFormula.ServiceType = dto.ServiceType;
-            //colorFormula.Products = dto?.Products;
+            DateTime date = DateTime.Now;
+            colorFormula.CreationDate = date;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -126,6 +117,7 @@ namespace TestWebApp.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = colorFormula.ColorFormulaID }, colorFormula);
         }
+
 
         // DELETE: api/ColorFormula/5
         [ResponseType(typeof(ColorFormula))]
