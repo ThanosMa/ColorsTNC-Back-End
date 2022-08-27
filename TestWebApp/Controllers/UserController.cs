@@ -6,113 +6,111 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Entities.Models;
-using MyDatabase;
+using TestWebApp.Models;
 
 namespace TestWebApp.Controllers
 {
-    public class ColorFormulaController : Controller
+    public class UserController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: ColorFormula
+        // GET: User
         public ActionResult Index()
         {
-            Console.WriteLine("tatfdgsf");
-            return View(db.ColorFormulas.ToList());
+            return View(db.Users.ToList());
         }
 
-        // GET: ColorFormula/Details/5
-        public ActionResult Details(int? id)
+        // GET: User/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ColorFormula colorFormula = db.ColorFormulas.Find(id);
-            if (colorFormula == null)
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(colorFormula);
+            return View(applicationUser);
         }
 
-        // GET: ColorFormula/Create
+        // GET: User/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ColorFormula/Create
+        // POST: User/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreationDate")] ColorFormula colorFormula)
+        public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                db.ColorFormulas.Add(colorFormula);
+                db.Users.Add(applicationUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(colorFormula);
+            return View(applicationUser);
         }
 
-        // GET: ColorFormula/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: User/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ColorFormula colorFormula = db.ColorFormulas.Find(id);
-            if (colorFormula == null)
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(colorFormula);
+            return View(applicationUser);
         }
 
-        // POST: ColorFormula/Edit/5
+        // POST: User/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreationDate")] ColorFormula colorFormula)
+        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(colorFormula).State = EntityState.Modified;
+                db.Entry(applicationUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(colorFormula);
+            return View(applicationUser);
         }
 
-        // GET: ColorFormula/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: User/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ColorFormula colorFormula = db.ColorFormulas.Find(id);
-            if (colorFormula == null)
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(colorFormula);
+            return View(applicationUser);
         }
 
-        // POST: ColorFormula/Delete/5
+        // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            ColorFormula colorFormula = db.ColorFormulas.Find(id);
-            db.ColorFormulas.Remove(colorFormula);
+            ApplicationUser applicationUser = db.Users.Find(id);
+            db.Users.Remove(applicationUser);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

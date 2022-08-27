@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace RepositoryServices.Persistance.Repositories
 {
-    public class ColorFormulaRepository:GenericRepository<ColorFormula>, IColorFormulaRepository
+    public class ImageFormulaRepository:GenericRepository<ImageFormula>, IImageRepository
     {
         
-        public ColorFormulaRepository(ApplicationDbContext context): base(context)
+        public ImageFormulaRepository(ApplicationDbContext context): base(context)
         {
 
         }

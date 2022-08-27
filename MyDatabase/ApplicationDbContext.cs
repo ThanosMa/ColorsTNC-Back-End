@@ -19,6 +19,7 @@ namespace MyDatabase
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ColorFormula> ColorFormulas { get; set; }
+        public DbSet<ImageFormula> ImageFormulas { get; set; }
 
     }
 }

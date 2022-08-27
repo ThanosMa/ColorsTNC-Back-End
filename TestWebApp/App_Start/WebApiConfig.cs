@@ -9,9 +9,13 @@ namespace TestWebApp
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
 
-            // Web API routes
+            config.Formatters.JsonFormatter
+            .SerializerSettings
+            .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            //Web API configuration and services
+
+            //Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -19,6 +23,7 @@ namespace TestWebApp
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.EnableCors(true);
         }
     }
 }
