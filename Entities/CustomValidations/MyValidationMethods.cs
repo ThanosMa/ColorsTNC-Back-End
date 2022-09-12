@@ -8,5 +8,6 @@ namespace Entities.CustomValidations
 {
     public class MyValidationMethods
     {
+
     }
 }

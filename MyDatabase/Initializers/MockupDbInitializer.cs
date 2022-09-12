@@ -26,6 +26,7 @@ namespace MyDatabase.Initializers
             Product p4 = new Product() { Brand = "Vella2", ColorCode = "15", ExpDate = DateTime.Now, TubeQuantity = 52.0, UsedQuantity = 2 };
             Product p5 = new Product() { Brand = "Vella3", ColorCode = "12", ExpDate = DateTime.Now, TubeQuantity = 51.0, UsedQuantity = 6 };
             Product p6 = new Product() { Brand = "Vella4", ColorCode = "23", ExpDate = DateTime.Now, TubeQuantity = 58.0, UsedQuantity = 4 };
+            Product p7 = new Product() { Brand = "Kevin", ColorCode = "24", ExpDate = DateTime.Now, TubeQuantity = 58.0, UsedQuantity = 4 };
             p1.Formulas = new List<ColorFormula>() { f1, f2 };
             p2.Formulas = new List<ColorFormula>() { f3, f4 };
             p3.Formulas = new List<ColorFormula>() { f4, f5 };
@@ -33,7 +34,7 @@ namespace MyDatabase.Initializers
             p5.Formulas = new List<ColorFormula>() { f1, f2 };
             p6.Formulas = new List<ColorFormula>() { f2, f3 };
 
-            context.Products.AddOrUpdate(p1, p2, p3, p4, p5, p6);
+            context.Products.AddOrUpdate(p1, p2, p3, p4, p5, p6, p7);
             context.SaveChanges();
             #endregion
 
@@ -42,10 +43,21 @@ namespace MyDatabase.Initializers
             f1.Products = new List<Product>() { p1, p2 };
             f2.Products = new List<Product>() { p2, p3 };
             f3.Products = new List<Product>() { p3, p4 };          
-            f4.Products = new List<Product>() { p4, p5 };
+            f4.Products = new List<Product>() { p4, p5, p7 };
             f5.Products = new List<Product>() { p4, p5, p6 };
            
             context.ColorFormulas.AddOrUpdate(f1, f2, f3, f4, f5);
+            context.SaveChanges();
+            #endregion
+
+            #region Customers
+            Customer c1 = new Customer() { FullName = "Oikonomou Nikola", Email = "nikolaos@gmail.com", PhoneNumber = "12345" };
+            Customer c2 = new Customer() { FullName = "Oikonomou Kwsta", Email = "kwsta@gmail.com", PhoneNumber = "56789" };
+            Customer c3 = new Customer() { FullName = "Mastoras Tanase", Email = "thanos@gmail.com", PhoneNumber = "001203" };
+            c1.FormulaIds = new List<int?>();
+            c2.FormulaIds = new List<int?>();
+            c3.FormulaIds = new List<int?>();
+            context.Customers.AddOrUpdate(c1, c2, c3);
             context.SaveChanges();
             #endregion
             base.Seed(context);

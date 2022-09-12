@@ -18,6 +18,7 @@ using TestWebApp.Dtos;
 
 namespace TestWebApp.Controllers
 {
+    [AllowAnonymous]
     [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
     public class ColorFormulaController : ApiController
     {
@@ -34,7 +35,6 @@ namespace TestWebApp.Controllers
         // GET: api/ColorFormula
         public IEnumerable<object> GetColorFormulas()
         {    
-            
             var colorFormulas = unit.ColorFormulas.GetAll().Select(x => new 
             {
                 ColorFormulaID = x.ColorFormulaID,
@@ -46,7 +46,7 @@ namespace TestWebApp.Controllers
                 FormulasPhotosid = x.FormulasPhotosid,
                 FormulasPhotosUrl=x.FormulasPhotosUrl,
                 Products = x.Products?.Select(y=> new { Brand = y?.Brand})
-              
+              //ProductBrand =
             });
             return colorFormulas;
         }
@@ -68,6 +68,8 @@ namespace TestWebApp.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutColorFormula(int id, ColorFormula colorFormula)
         {
+             IEnumerable<int> productIds = null;
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -77,10 +79,34 @@ namespace TestWebApp.Controllers
             {
                 return BadRequest();
             }
+            ColorFormula tempFormula = unit.ColorFormulas.GetById(id);
+            tempFormula.FormulaName = colorFormula.FormulaName;
+            tempFormula.Duration = colorFormula.Duration;
+            tempFormula.ServiceType = colorFormula.ServiceType;
+            tempFormula.Cost = colorFormula.Cost;
+            tempFormula.CreationDate = colorFormula.CreationDate;
+            tempFormula.FormulasPhotosid = colorFormula.FormulasPhotosid;
+            tempFormula.FormulasPhotosUrl = colorFormula.FormulasPhotosUrl;
+            tempFormula.Products.Clear();
+            if(colorFormula.Products != null)
+            {
+               productIds = new List<int>(colorFormula.Products.Select(x => x.ID));
+            }
+           
+            
+            if(productIds != null)
+            {
+                foreach (var proId in productIds)
+                {
+                    var product = unit.Products.GetById(proId);
+                    if(product != null)
+                    {
+                        tempFormula.Products.Add(product);
+                    }
+                }
+            }
 
-            unit.ColorFormulas.Update(colorFormula);
-            //db.Entry(colorFormula).State = EntityState.Modified;
-
+            unit.ColorFormulas.Update(tempFormula);
             try
             {
                 unit.Complete();
@@ -105,14 +131,40 @@ namespace TestWebApp.Controllers
         [ResponseType(typeof(ColorFormula))]
         public IHttpActionResult PostColorFormula(ColorFormula colorFormula)
         {
+            IEnumerable<int> productIds = null;
             DateTime date = DateTime.Now;
             colorFormula.CreationDate = date;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            ColorFormula tempFormula = new ColorFormula();
+            tempFormula.FormulaName = colorFormula.FormulaName;
+            tempFormula.Duration = colorFormula.Duration;
+            tempFormula.ServiceType = colorFormula.ServiceType;
+            tempFormula.Cost = colorFormula.Cost;
+            tempFormula.CreationDate = colorFormula.CreationDate;
+            tempFormula.FormulasPhotosid = colorFormula.FormulasPhotosid;
+            tempFormula.FormulasPhotosUrl = colorFormula.FormulasPhotosUrl;
+            tempFormula.Products = new List<Product>();
+            if (colorFormula.Products != null)
+            {
+                productIds = new List<int>(colorFormula.Products.Select(x => x.ID));
+            }
+            
 
-            unit.ColorFormulas.Insert(colorFormula);
+            if (productIds != null)
+            {
+                foreach (var proId in productIds)
+                {
+                    var product = unit.Products.GetById(proId);
+                    if (product != null)
+                    {
+                        tempFormula.Products.Add(product);
+                    }
+                }
+            }
+            unit.ColorFormulas.Insert(tempFormula);
             unit.Complete();
 
             return CreatedAtRoute("DefaultApi", new { id = colorFormula.ColorFormulaID }, colorFormula);
