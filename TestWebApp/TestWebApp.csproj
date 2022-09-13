@@ -198,6 +198,7 @@
     <Compile Include="Controllers\ApiControllers\ColorFormulaController.cs" />
     <Compile Include="Controllers\ApiControllers\CustomerController.cs" />
     <Compile Include="Controllers\ApiControllers\ImageFormulaController.cs" />
+    <Compile Include="Controllers\ApiControllers\PhotoController.cs" />
     <Compile Include="Controllers\ApiControllers\ProductController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
