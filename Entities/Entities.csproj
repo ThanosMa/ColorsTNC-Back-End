@@ -74,6 +74,7 @@
     <Compile Include="Models\ColorFormula.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\ImageFormula.cs" />
+    <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

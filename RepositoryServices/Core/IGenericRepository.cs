@@ -16,7 +16,7 @@ namespace RepositoryServices.Core
 
         T SingleOrDefault(Expression<Func<T, bool>> predicate);
 
-        void Insert(T obj);
+        object Insert(T obj);
 
         void Update(T obj);
 

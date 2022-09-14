@@ -33,15 +33,18 @@ namespace RepositoryServices.Persistance
             return table.Find(id);
         }
 
-        public void Insert(T obj)
+        public object Insert(T obj)
         {
           //  db.Entry(obj).State = EntityState.Added;//
             table.Add(obj);
+            return obj;
         }
 
-        public void Update(T obj)
+        public void Update(T obj )
         {
+            //ftiakse kainourgia edit oxi generic
             table.Attach(obj);
+           
             db.Entry(obj).State = EntityState.Modified;
         }
 
@@ -53,7 +56,6 @@ namespace RepositoryServices.Persistance
 
         public void Save()
         {
-
             db.SaveChanges();
         }
 
