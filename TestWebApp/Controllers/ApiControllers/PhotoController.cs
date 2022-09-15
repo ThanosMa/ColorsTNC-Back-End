@@ -47,7 +47,7 @@ namespace TestWebApp.Controllers.ApiControllers
             Photo tempPhoto = new Photo();
             
             var ctx = HttpContext.Current;
-            var root = ctx.Server.MapPath("~/App_Data");
+            var root = ctx.Server.MapPath("~/Photos");
             var provider =
                 new MultipartFormDataStreamProvider(root);
             try
@@ -61,9 +61,15 @@ namespace TestWebApp.Controllers.ApiControllers
                         .FileName;
                     // remove double quotes from string.
                     name = name.Trim('"');
+                    while (File.Exists("C:/Users/Nikos/source/repos/ColorsTNC/TestWebApp/Photos/" + name))
+                    {
+                        name = ChangeNameIfExists(name);
+                    }
+                    
                     var localFileName = file.LocalFileName;
                     var filePath = Path.Combine(root, name);
                     File.Move(localFileName, filePath);
+                    filePath = Path.Combine("\\Photos\\", name);
                     tempPhoto.FilePath = filePath;
                 }
                 unit.Photos.Insert(tempPhoto);
@@ -73,7 +79,16 @@ namespace TestWebApp.Controllers.ApiControllers
             {
                 return $"Error: {e.Message}";
             }
-            return tempPhoto.Id.ToString();
+            return tempPhoto.FilePath;
+        }
+
+
+        public static string ChangeNameIfExists(string fileName)
+        {
+            var random = new Random().Next(1, 999).ToString();
+            string[] fileNameArray = fileName.Split('.');
+            fileName = fileNameArray[0] + random + "." + fileNameArray[1];
+            return fileName;
         }
     }
 }

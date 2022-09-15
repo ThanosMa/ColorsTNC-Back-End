@@ -45,8 +45,15 @@ namespace TestWebApp.Controllers
                 ServiceType = x.ServiceType,
                 FormulasPhotosid = x.FormulasPhotosid,
                 FormulasPhotosUrl=x.FormulasPhotosUrl,
-                Products = x.Products?.Select(y=> new { Brand = y?.Brand})
-              //ProductBrand =
+                Products = x.Products?.Select(y=> new 
+                { 
+                    ID = y?.ID, 
+                    Brand = y?.Brand,  
+                    ColorCode = y?.ColorCode,
+                    UsedQuantity = y?.UsedQuantity,
+                    ExpDate = y?.ExpDate,
+                    TubeQuantity = y?.TubeQuantity,
+                })
             });
             return colorFormulas;
         }
@@ -56,12 +63,40 @@ namespace TestWebApp.Controllers
         public IHttpActionResult GetColorFormula(int id)
         {
             ColorFormula colorFormula = unit.ColorFormulas.GetById(id);
+            IEnumerable<int> productIds = null;
             if (colorFormula == null)
             {
                 return NotFound();
             }
+            if (colorFormula.Products != null)
+            {
+                productIds = new List<int>(colorFormula.Products.Select(x => x.ID));
+            }
 
-            return Ok(colorFormula);
+            ColorFormula tempFormula = new ColorFormula();
+
+            tempFormula.ColorFormulaID = colorFormula.ColorFormulaID;
+            tempFormula.FormulaName = colorFormula.FormulaName;
+            tempFormula.CreationDate = colorFormula.CreationDate;
+            tempFormula.Cost = colorFormula.Cost;
+            tempFormula.Duration = colorFormula.Duration;
+            tempFormula.ServiceType = colorFormula.ServiceType;
+            tempFormula.FormulasPhotosid = colorFormula.FormulasPhotosid;
+            tempFormula.FormulasPhotosUrl = colorFormula.FormulasPhotosUrl;
+
+            tempFormula.Products = new List<Product>();
+            if (productIds != null)
+            {
+                foreach (var proId in productIds)
+                {
+                    var product = unit.Products.GetById(proId);
+                    if (product != null)
+                    {
+                        tempFormula.Products.Add(product);
+                    }
+                }
+            }
+            return Ok(tempFormula);
         }
 
         // PUT: api/ColorFormula/5
