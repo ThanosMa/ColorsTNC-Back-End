@@ -57,6 +57,7 @@
     <Compile Include="Core\IRepositories\ICustomerRepository.cs" />
     <Compile Include="Core\IRepositories\IPhotoRepository.cs" />
     <Compile Include="Core\IRepositories\IProductRepository.cs" />
+    <Compile Include="Core\IRepositories\IShopProductRepository.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Persistance\GenericRepository.cs" />
     <Compile Include="Persistance\Repositories\ImageFormulaRepository.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Persistance\Repositories\CustomerRepository.cs" />
     <Compile Include="Persistance\Repositories\PhotoRepository.cs" />
     <Compile Include="Persistance\Repositories\ProductRepository.cs" />
+    <Compile Include="Persistance\Repositories\ShopProductRepository.cs" />
     <Compile Include="Persistance\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -20,6 +20,7 @@ namespace MyDatabase
         public DbSet<Product> Products { get; set; }
         public DbSet<ColorFormula> ColorFormulas { get; set; }
         public DbSet<ImageFormula> ImageFormulas { get; set; }
+        public DbSet<ShopProduct> ShopProducts { get; set; }
 
         public System.Data.Entity.DbSet<Entities.Models.Photo> Photos { get; set; }
     }

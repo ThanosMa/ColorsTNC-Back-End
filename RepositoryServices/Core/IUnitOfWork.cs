@@ -15,6 +15,7 @@ namespace RepositoryServices.Core
         IProductRepository Products { get; }
         IImageRepository ImageFormulas { get; }
         IPhotoRepository Photos { get; }
+        IShopProductRepository ShopProducts { get; }
 
         int Complete();
     }
