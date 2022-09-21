@@ -13,20 +13,20 @@ namespace MyDatabase.Initializers
     {
         protected override void Seed(ApplicationDbContext context)
         {
-            ColorFormula f1 = new ColorFormula() { FormulaName = "Ths Fwtias", Cost = 10, CreationDate = DateTime.Now, Duration = "20", ServiceType = "Vafh" };
-            ColorFormula f2 = new ColorFormula() { FormulaName = "Tou Pagou", Cost = 20, CreationDate = DateTime.Now, Duration = "30", ServiceType = "rizes" };
-            ColorFormula f3 = new ColorFormula() { FormulaName = "Tou Neilou", Cost = 30, CreationDate = DateTime.Now, Duration = "40", ServiceType = "Adabies" };
-            ColorFormula f4 = new ColorFormula() { FormulaName = "Tou Ouranou", Cost = 40, CreationDate = DateTime.Now, Duration = "50", ServiceType = "Rizes2" };
-            ColorFormula f5 = new ColorFormula() { FormulaName = "Ths Thalassas", Cost = 50, CreationDate = DateTime.Now, Duration = "60", ServiceType = "Ola" };
+            ColorFormula f1 = new ColorFormula() { FormulaName = "Fire", Cost = 10, CreationDate = DateTime.Now, Duration = "20", ServiceType = "All Over", FormulasPhotosUrl= "\\Photos\\redHair.jpg" };
+            ColorFormula f2 = new ColorFormula() { FormulaName = "Ice", Cost = 20, CreationDate = DateTime.Now, Duration = "30", ServiceType = "Roots", FormulasPhotosUrl = "\\Photos\\whiteHair.jpg" };
+            ColorFormula f3 = new ColorFormula() { FormulaName = "Desert", Cost = 30, CreationDate = DateTime.Now, Duration = "40", ServiceType = "All Over", FormulasPhotosUrl = "\\Photos\\blondeHair.jpg" };
+            ColorFormula f4 = new ColorFormula() { FormulaName = "Sky", Cost = 40, CreationDate = DateTime.Now, Duration = "50", ServiceType = "Length", FormulasPhotosUrl = "\\Photos\\skyBlue.jpg" };
+            ColorFormula f5 = new ColorFormula() { FormulaName = "Sea", Cost = 50, CreationDate = DateTime.Now, Duration = "60", ServiceType = "Strands", FormulasPhotosUrl = "\\Photos\\seaBlue.jpg" };
 
             #region product
-            Product p1 = new Product() { Brand = "Vella", ColorCode = "123", ExpDate = DateTime.Now, TubeQuantity = 50.0, UsedQuantity = 5, };
-            Product p2 = new Product() { Brand = "Loreal", ColorCode = "14", ExpDate = DateTime.Now, TubeQuantity = 55.0, UsedQuantity = 4 };
-            Product p3 = new Product() { Brand = "GtMouAksizei", ColorCode = "13", ExpDate = DateTime.Now, TubeQuantity = 54.0, UsedQuantity = 3 };
-            Product p4 = new Product() { Brand = "Vella2", ColorCode = "15", ExpDate = DateTime.Now, TubeQuantity = 52.0, UsedQuantity = 2 };
-            Product p5 = new Product() { Brand = "Vella3", ColorCode = "12", ExpDate = DateTime.Now, TubeQuantity = 51.0, UsedQuantity = 6 };
-            Product p6 = new Product() { Brand = "Vella4", ColorCode = "23", ExpDate = DateTime.Now, TubeQuantity = 58.0, UsedQuantity = 4 };
-            Product p7 = new Product() { Brand = "Kevin", ColorCode = "24", ExpDate = DateTime.Now, TubeQuantity = 58.0, UsedQuantity = 4 };
+            Product p1 = new Product() { Brand = "Vella", ColorCode = "6.0", ExpDate = DateTime.Now, TubeQuantity = 50.0, UsedQuantity = 5, };
+            Product p2 = new Product() { Brand = "Loreal", ColorCode = "5.8", ExpDate = DateTime.Now, TubeQuantity = 55.0, UsedQuantity = 4 };
+            Product p3 = new Product() { Brand = "Herbal Essences", ColorCode = "7.5", ExpDate = DateTime.Now, TubeQuantity = 50.0, UsedQuantity = 3 };
+            Product p4 = new Product() { Brand = "Garnier", ColorCode = "2.2", ExpDate = DateTime.Now, TubeQuantity = 50.0, UsedQuantity = 2 };
+            Product p5 = new Product() { Brand = "Mamaearth", ColorCode = "5.7", ExpDate = DateTime.Now, TubeQuantity = 50.0, UsedQuantity = 6 };
+            Product p6 = new Product() { Brand = "Biotique", ColorCode = "3.9", ExpDate = DateTime.Now, TubeQuantity = 50.0, UsedQuantity = 4 };
+            Product p7 = new Product() { Brand = "Kevin", ColorCode = "9.8", ExpDate = DateTime.Now, TubeQuantity = 50.0, UsedQuantity = 4 };
             p1.Formulas = new List<ColorFormula>() { f1, f2 };
             p2.Formulas = new List<ColorFormula>() { f3, f4 };
             p3.Formulas = new List<ColorFormula>() { f4, f5 };
@@ -51,9 +51,10 @@ namespace MyDatabase.Initializers
             #endregion
 
             #region Customers
-            Customer c1 = new Customer() { FullName = "Oikonomou Nikola", Email = "nikolaos@gmail.com", PhoneNumber = "12345" };
-            Customer c2 = new Customer() { FullName = "Oikonomou Kwsta", Email = "kwsta@gmail.com", PhoneNumber = "56789" };
-            Customer c3 = new Customer() { FullName = "Mastoras Tanase", Email = "thanos@gmail.com", PhoneNumber = "001203" };
+            Customer c1 = new Customer() { FullName = "Οικονόμου Νίκος", Email = "nikosoikonomou@gmail.com", PhoneNumber = "69745645314", PhotoUrl= "\\Photos\\Nikolas.jpg" };
+            Customer c2 = new Customer() { FullName = "Οικονόμου Κώστας", Email = "cgeconomou@hotmail.com", PhoneNumber = "69745645679", PhotoUrl = "\\Photos\\Kwstas.jpg" };
+            Customer c3 = new Customer() { FullName = "Μαστρογιάννης Θανάσης", Email = "mastrogiannisath@gmail.com", PhoneNumber = "69744545654", PhotoUrl= "\\Photos\\Tanasis.jpg"  };
+
             c1.FormulaIds = new List<int?>();
             c2.FormulaIds = new List<int?>();
             c3.FormulaIds = new List<int?>();
@@ -63,7 +64,7 @@ namespace MyDatabase.Initializers
 
             #region ShopProducts
             ShopProduct m1 = new ShopProduct() { Name = "Τροχοί Ονυχοπλαστικής", Category = "Ονυχοπλαστική", Quantity = 10, Price = 8.15, Description = "Φρεζάκι νυχιών καρβιδίου σε κυλινδρικό σχήμα με λεία ή στρογγυλεμένη (safety) κεφαλή, ιδανική για αφαίρεση υλικού, pedicure ή σχηματισμό νυχιού. Οι φρέζες καρβιδίου έχουν μεγάλη αντοχή, είναι αρκετά σκληρές και μπορούν να αποστειρωθούν. Ειναι ιδανικές για την αφαίρεση ημιμόνιμου, gel και ακρυλικού.", PhotoUrl = "https://b.scdn.gr/images/sku_main_images/023937/23937854/xlarge_20220210133912_agc_frezaki_12_trocholithakia_onychoplastikis.jpeg" };
-            ShopProduct m2 = new ShopProduct() { Name = "Απποροφητήρας νυχιώνν", Category = "Ονυχοπλαστική", Quantity = 10, Price = 25.50, Description = "Επαγγελματικό φουρνάκι νυχιών με 4 λάμπες UV 36W για στέγνωμα σε 45 δευτερόλεπτα. Είναι κατάλληλο για ημιμόνιμο μανικιούρ / πεντικιούρ.", PhotoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFWHMf6nNIXq5VTok_JTdyD4nKjLEsxUDSy_myhmNrORVpZ1zyn1esVCL_162jZ8wDA3I&usqp=CAU" };
+            ShopProduct m2 = new ShopProduct() { Name = "Αποροφητήρας νυχιών", Category = "Ονυχοπλαστική", Quantity = 10, Price = 25.55, Description = "Επαγγελματικό φουρνάκι νυχιών με 4 λάμπες UV 36W για στέγνωμα σε 45 δευτερόλεπτα. Είναι κατάλληλο για ημιμόνιμο μανικιούρ / πεντικιούρ.", PhotoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFWHMf6nNIXq5VTok_JTdyD4nKjLEsxUDSy_myhmNrORVpZ1zyn1esVCL_162jZ8wDA3I&usqp=CAU" };
             ShopProduct m3 = new ShopProduct() { Name = "Αερογράφοι", Category = "Ονυχοπλαστική", Quantity = 10, Price = 11.45, Description = "Αερογράφος mini +αεροσυμπιεστής + 12 φιαλίδια βαφής. Έτοιμο προς χρήση κιτ, περιέχει 12 φιαλίδια ακρυλικής βαφής. Ένας πολύ εύχρηστος, εξαιρετικά αθόρυβος και μικρού μεγέθους συμπιεστής, με μπαταρία.", PhotoUrl = "https://a.scdn.gr/images/sku_main_images/033648/33648134/xlarge_20220128113121_aerografos_aerosympiestis_me_12_fialidia_vafis_kas_10219.jpeg" };
             ShopProduct m4 = new ShopProduct() { Name = "Gel Δόμησης", Category = "Ονυχοπλαστική", Quantity = 10, Price = 9.99, Description = "Τζελ στεγανοποίησης ηλεκτρικών συνδέσεων 1000 gr RAY TECH TECHNO GEL GUM μπλε για πισίνες 21kV/mm | Techno Gel Gum", PhotoUrl = "https://a.scdn.gr/images/sku_main_images/036467/36467897/xlarge_20220607161019_tzel_steganopoiisis_ilektrikon_syndeseon_1000_gr_ray_tech_techno_gel_gum_mple_gia_pisines_21kv_mm_techno_gel_gum.jpeg" };
             ShopProduct m5 = new ShopProduct() { Name = "Nail Art", Category = "Ονυχοπλαστική", Quantity = 10, Price = 3.55, Description = "Αμέτρητες δημιουργίες χρωμάτων, με διαφορετικά χρώματα στη βάση ή και χωρίς καθόλου χρώμα, μόνο με κολλώδη ουσία. Συσκευασία : 6 βαζάκια σε σακουλάκι με ασφαλές κλείσιμο.", PhotoUrl = "https://a.scdn.gr/images/sku_main_images/031275/31275895/xlarge_20210927141237_aurora_mermaid_skoni_diakosmisis_se_diafora_chromata.jpeg" };
@@ -126,6 +127,14 @@ namespace MyDatabase.Initializers
             context.SaveChanges();
 
 
+            #endregion
+
+            #region ShopCustomer
+            Order sc1 = new Order() { FirstName = "Nikos", LastName = "Oikonomou", Email="nikosoikonomou88@gmail.com", Address="Plastira 55", TotalCost = 150 };
+            Order sc2 = new Order() { FirstName = "Kwstas", LastName = "Oikonomou", Email="kwstasoikonomou88@gmail.com", Address = "Plastira 45", TotalCost = 140 };
+            Order sc3 = new Order() { FirstName = "Thanasis", LastName = "Mastrogiannis", Email="mastrogiannisath@gmail.com", Address = "Plastira 55", TotalCost = 130 };
+            context.Orders.AddOrUpdate(sc1, sc2, sc3);
+            context.SaveChanges();
             #endregion
             base.Seed(context);
         }

@@ -80,6 +80,36 @@ namespace TestWebApp.Controllers.ApiControllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        public IHttpActionResult PutShopProduct(List<ShopProduct> shopProducts)
+        {
+            var tempProduct = new ShopProduct();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (shopProducts.Count == 0)
+            {
+                return BadRequest();
+            }
+
+            foreach (var product in shopProducts)
+            {
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                tempProduct = unit.ShopProducts.GetById(product.Id);
+                tempProduct.Quantity = product.Quantity;
+                unit.ShopProducts.Update(tempProduct);
+                unit.Complete();
+            }
+
+            return Ok(shopProducts);
+
+        }
+
+
         // POST: api/ShopProduct
         [ResponseType(typeof(ShopProduct))]
         public IHttpActionResult PostShopProduct(ShopProduct shopProduct)

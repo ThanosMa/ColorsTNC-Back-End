@@ -22,6 +22,8 @@ namespace MyDatabase
         public DbSet<ImageFormula> ImageFormulas { get; set; }
         public DbSet<ShopProduct> ShopProducts { get; set; }
 
-        public System.Data.Entity.DbSet<Entities.Models.Photo> Photos { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace RepositoryServices.Persistance
             ImageFormulas = new ImageFormulaRepository(context);
             Photos = new PhotoRepository(context);
             ShopProducts = new ShopProductRepository(context);
+            Orders = new OrderRepository(context);
         }
 
         public IColorFormulaRepository ColorFormulas { get; private set; }
@@ -30,6 +31,7 @@ namespace RepositoryServices.Persistance
         public IImageRepository ImageFormulas { get; private set; }
         public IPhotoRepository Photos { get; private set; }
         public IShopProductRepository ShopProducts { get; private set; }
+        public IOrderRepository Orders { get; private set; }
 
        
 
