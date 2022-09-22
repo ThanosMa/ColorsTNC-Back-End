@@ -21,9 +21,8 @@ namespace MyDatabase
         public DbSet<ColorFormula> ColorFormulas { get; set; }
         public DbSet<ImageFormula> ImageFormulas { get; set; }
         public DbSet<ShopProduct> ShopProducts { get; set; }
-
         public DbSet<Photo> Photos { get; set; }
-
         public DbSet<Order> Orders { get; set; }
+        public DbSet<WarehouseProduct> WarehouseProducts { get; set; }
     }
 }
