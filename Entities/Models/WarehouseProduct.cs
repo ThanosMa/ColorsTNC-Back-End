@@ -11,7 +11,8 @@ namespace Entities.Models
         public int Id { get; set; }
         public string Brand { get; set; }
         public string ColorCode { get; set; }
-        public double TotalQuantity { get; set; }
+        public int TubeQuantity { get; set; }
+        public int TotalQuantity { get; set; }
 
         //public virtual ICollection<ColorFormula> Formulas { get; set; }
     }

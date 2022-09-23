@@ -17,7 +17,7 @@ namespace Entities.Models
         public double TubeQuantity { get; set; }
         // public double TotalQuantity { get; set; }
      
-        public virtual ICollection<ColorFormula> Formulas { get; set; }
+        //public virtual ICollection<ColorFormula> Formulas { get; set; }
        
     }
 }

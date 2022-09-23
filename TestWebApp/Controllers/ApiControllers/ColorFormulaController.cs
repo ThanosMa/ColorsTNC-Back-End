@@ -167,6 +167,7 @@ namespace TestWebApp.Controllers
         public IHttpActionResult PostColorFormula(ColorFormula colorFormula)
         {
             IEnumerable<int> productIds = null;
+            IEnumerable<Product> tempProducts = null;
             DateTime date = DateTime.Now;
             colorFormula.CreationDate = date;
             if (!ModelState.IsValid)
@@ -182,23 +183,20 @@ namespace TestWebApp.Controllers
             tempFormula.FormulasPhotosid = colorFormula.FormulasPhotosid;
             tempFormula.FormulasPhotosUrl = colorFormula.FormulasPhotosUrl;
             tempFormula.Products = new List<Product>();
+            
             if (colorFormula.Products != null)
             {
-                productIds = new List<int>(colorFormula.Products.Select(x => x.ID));
-            }
-            
+                var query = from pro in colorFormula.Products
+                            select new Product() { Brand = pro.Brand, ColorCode = pro.ColorCode, UsedQuantity = pro.UsedQuantity };
 
-            if (productIds != null)
-            {
-                foreach (var proId in productIds)
+                tempProducts = new List<Product>(query);
+                foreach (var product in tempProducts)
                 {
-                    var product = unit.Products.GetById(proId);
-                    if (product != null)
-                    {
-                        tempFormula.Products.Add(product);
-                    }
+                    tempFormula.Products.Add(product);
                 }
             }
+            
+            
             unit.ColorFormulas.Insert(tempFormula);
             unit.Complete();
 

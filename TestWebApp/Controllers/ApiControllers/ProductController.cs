@@ -37,7 +37,7 @@ namespace TestWebApp.Controllers.ApiControllers
                 UsedQuantity = x.UsedQuantity,
                 ExpDate = x.ExpDate,
                 TubeQuantity = x.TubeQuantity,
-                Formulas = x.Formulas.Select(y => new { FormulaName = y.FormulaName})
+                //Formulas = x.Formulas.Select(y => new { FormulaName = y.FormulaName})
             });
             return products;
         }
