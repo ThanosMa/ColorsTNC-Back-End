@@ -16,60 +16,50 @@ using RepositoryServices.Persistance;
 namespace TestWebApp.Controllers.ApiControllers
 {
     [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
-    public class ProductController : ApiController
+    public class WarehouseProductController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private UnitOfWork unit;
 
-        public ProductController()
+        public WarehouseProductController()
         {
             unit = new UnitOfWork(db);
         }
 
-        // GET: api/Product
-        public IEnumerable<object> GetProducts()
+        // GET: api/WarehouseProduct
+        public IEnumerable<WarehouseProduct> GetWarehouseProducts()
         {
-            var products = unit.Products.GetAll().Select(x => new
-            {
-                ID = x.ID,
-                Brand = x.Brand,
-                ColorCode = x.ColorCode,
-                UsedQuantity = x.UsedQuantity,
-                ExpDate = x.ExpDate,
-                TubeQuantity = x.TubeQuantity,
-                //Formulas = x.Formulas.Select(y => new { FormulaName = y.FormulaName})
-            });
-            return products;
+            return unit.WarehouseProducts.GetAll();
         }
 
-        // GET: api/Product/5
-        [ResponseType(typeof(Product))]
-        public IHttpActionResult GetProduct(int id)
+        // GET: api/WarehouseProduct/5
+        [ResponseType(typeof(WarehouseProduct))]
+        public IHttpActionResult GetWarehouseProduct(int id)
         {
-            Product product = unit.Products.GetById(id);
-            if (product == null)
+            WarehouseProduct warehouseProduct = unit.WarehouseProducts.GetById(id);
+            if (warehouseProduct == null)
             {
                 return NotFound();
             }
 
-            return Ok(product);
+            return Ok(warehouseProduct);
         }
 
-        // PUT: api/Product/5
+        // PUT: api/WarehouseProduct/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProduct(int id, Product product)
+        public IHttpActionResult PutWarehouseProduct(int id, WarehouseProduct warehouseProduct)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != product.ID)
+            if (id != warehouseProduct.Id)
             {
                 return BadRequest();
             }
-          
-            unit.Products.Update(product);
+
+            unit.WarehouseProducts.Update(warehouseProduct);
 
             try
             {
@@ -77,7 +67,7 @@ namespace TestWebApp.Controllers.ApiControllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!WarehouseProductExists(id))
                 {
                     return NotFound();
                 }
@@ -90,38 +80,36 @@ namespace TestWebApp.Controllers.ApiControllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Product
-        [ResponseType(typeof(Product))]
-        public IHttpActionResult PostProduct(Product product)
+        // POST: api/WarehouseProduct
+        [ResponseType(typeof(WarehouseProduct))]
+        public IHttpActionResult PostWarehouseProduct(WarehouseProduct warehouseProduct)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            unit.Products.Insert(product);
+            unit.WarehouseProducts.Insert(warehouseProduct);
             unit.Complete();
 
-            return CreatedAtRoute("DefaultApi", new { id = product.ID }, product);
+            return CreatedAtRoute("DefaultApi", new { id = warehouseProduct.Id }, warehouseProduct);
         }
 
-        // DELETE: api/Product/5
-        [ResponseType(typeof(Product))]
-        public IHttpActionResult DeleteProduct(int id)
+        // DELETE: api/WarehouseProduct/5
+        [ResponseType(typeof(WarehouseProduct))]
+        public IHttpActionResult DeleteWarehouseProduct(int id)
         {
-            Product product = unit.Products.GetById(id);
-            if (product == null)
+            WarehouseProduct warehouseProduct = db.WarehouseProducts.Find(id);
+            if (warehouseProduct == null)
             {
                 return NotFound();
             }
 
-            unit.Products.Delete(product.ID);
+            unit.WarehouseProducts.Delete(warehouseProduct.Id);
             unit.Complete();
 
-            return Ok(product);
+            return Ok(warehouseProduct);
         }
-
-
 
         protected override void Dispose(bool disposing)
         {
@@ -132,9 +120,9 @@ namespace TestWebApp.Controllers.ApiControllers
             base.Dispose(disposing);
         }
 
-        private bool ProductExists(int id)
+        private bool WarehouseProductExists(int id)
         {
-            return unit.Products.GetAll().Count(e => e.ID == id) > 0;
+            return unit.WarehouseProducts.GetAll().Count(e => e.Id == id) > 0;
         }
     }
 }

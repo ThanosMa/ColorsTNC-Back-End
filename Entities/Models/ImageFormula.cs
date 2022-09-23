@@ -10,5 +10,6 @@ namespace Entities.Models
     {
         public int Id { get; set; }
         public byte[] ImageContent { get; set; }
+
     }
 }

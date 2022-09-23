@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Models
 {
-    public class Product
+    public class WarehouseProduct
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Brand { get; set; }
         public string ColorCode { get; set; }
-        public double UsedQuantity { get; set; }
-        public DateTime? ExpDate { get; set; }
-        public double TubeQuantity { get; set; }
-        // public double TotalQuantity { get; set; }
-     
+        public int TubeQuantity { get; set; }
+        public int TotalQuantity { get; set; }
+
         //public virtual ICollection<ColorFormula> Formulas { get; set; }
-       
     }
 }
