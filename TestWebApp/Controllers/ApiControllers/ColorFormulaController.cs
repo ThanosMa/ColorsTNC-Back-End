@@ -209,6 +209,11 @@ namespace TestWebApp.Controllers
         public IHttpActionResult DeleteColorFormula(int id)
         {
             ColorFormula colorFormula = unit.ColorFormulas.GetById(id);
+            colorFormula.Products.Clear();
+            //foreach (var product in tempProducts)
+            //{
+
+            //}
             if (colorFormula == null)
             {
                 return NotFound();

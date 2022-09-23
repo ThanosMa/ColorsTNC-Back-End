@@ -105,7 +105,7 @@ namespace TestWebApp.Controllers.ApiControllers
                 return NotFound();
             }
 
-            unit.WarehouseProducts.Delete(warehouseProduct);
+            unit.WarehouseProducts.Delete(warehouseProduct.Id);
             unit.Complete();
 
             return Ok(warehouseProduct);
