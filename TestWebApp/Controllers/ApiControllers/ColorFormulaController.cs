@@ -166,7 +166,7 @@ namespace TestWebApp.Controllers
         [ResponseType(typeof(ColorFormula))]
         public IHttpActionResult PostColorFormula(ColorFormula colorFormula)
         {
-            IEnumerable<int> productIds = null;
+            //IEnumerable<int> productIds = null;
             IEnumerable<Product> tempProducts = null;
             DateTime date = DateTime.Now;
             colorFormula.CreationDate = date;
@@ -210,10 +210,7 @@ namespace TestWebApp.Controllers
         {
             ColorFormula colorFormula = unit.ColorFormulas.GetById(id);
             colorFormula.Products.Clear();
-            //foreach (var product in tempProducts)
-            //{
-
-            //}
+          
             if (colorFormula == null)
             {
                 return NotFound();

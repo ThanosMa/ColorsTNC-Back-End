@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace TestWebApp
 {
@@ -16,6 +17,11 @@ namespace TestWebApp
             //Web API configuration and services
 
             //Web API routes
+
+
+            //config.Filters.Add(new AuthorizeAttribute());
+            config.EnableCors(new EnableCorsAttribute("http://localhost:4200", headers: "*", methods: "*"));
+
 
             config.MapHttpAttributeRoutes();
 

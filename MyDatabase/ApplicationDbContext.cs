@@ -16,6 +16,7 @@ namespace MyDatabase
             Database.SetInitializer<ApplicationDbContext>(new MockupDbInitializer());
             Database.Initialize(false);
         }
+
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ColorFormula> ColorFormulas { get; set; }

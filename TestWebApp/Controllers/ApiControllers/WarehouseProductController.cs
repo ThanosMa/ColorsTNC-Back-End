@@ -99,7 +99,7 @@ namespace TestWebApp.Controllers.ApiControllers
         [ResponseType(typeof(WarehouseProduct))]
         public IHttpActionResult DeleteWarehouseProduct(int id)
         {
-            WarehouseProduct warehouseProduct = db.WarehouseProducts.Find(id);
+            WarehouseProduct warehouseProduct = unit.WarehouseProducts.GetById(id);
             if (warehouseProduct == null)
             {
                 return NotFound();
