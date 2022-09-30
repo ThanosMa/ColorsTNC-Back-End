@@ -35,14 +35,20 @@ namespace TestWebApp.Controllers.ApiControllers
                 RequiredLength = 3
             };
             IdentityResult result = manager.Create(user, model.Password);
+            // --> Uncomment this if you want to create more Admins.
             //if (model.Roles.Contains("Admin"))
             //{
             //    return IdentityResult.Failed("Admin Allready exists");
             //}
-           // manager.AddToRoles(user.Id, model.Roles);
+            manager.AddToRoles(user.Id, model.Roles);
             return result;
         }
 
+        /// <summary>
+        /// Method that displays User's information.
+        /// At the moment is not consumed by angular.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/GetUserClaims")]
         public AccountModel GetUserClaims()
@@ -60,6 +66,10 @@ namespace TestWebApp.Controllers.ApiControllers
             return model;
         }
 
+        /// <summary>
+        /// Testing Roles
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Admin")]
         [Route("api/ForAdminRole")]
@@ -69,19 +79,19 @@ namespace TestWebApp.Controllers.ApiControllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Author")]
-        [Route("api/ForAuthorRole")]
+        [Authorize(Roles = "Employee")]
+        [Route("api/ForEmployeeRole")]
         public string ForAuthorRole()
         {
-            return "For author role";
+            return "For Employee role";
         }
 
         [HttpGet]
-        [Authorize(Roles = "Author,Reader")]
-        [Route("api/ForAuthorOrReader")]
+        [Authorize(Roles = "Employee,Visitor")]
+        [Route("api/ForEmployeeOrVisitor")]
         public string ForAuthorOrReader()
         {
-            return "For author/reader role";
+            return "For Employee/Visitor role";
         }
     }
 }

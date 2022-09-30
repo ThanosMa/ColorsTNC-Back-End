@@ -18,11 +18,6 @@ namespace TestWebApp
 
             //Web API routes
 
-
-            //config.Filters.Add(new AuthorizeAttribute());
-            config.EnableCors(new EnableCorsAttribute("http://localhost:4200", headers: "*", methods: "*"));
-
-
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -30,7 +25,9 @@ namespace TestWebApp
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            config.EnableCors(true);
+            config.Filters.Add(new AuthorizeAttribute());
+            // config.EnableCors(true);
+            //config.EnableCors(new EnableCorsAttribute("http://localhost:4200", headers: "*", methods: "*"));
         }
     }
 }

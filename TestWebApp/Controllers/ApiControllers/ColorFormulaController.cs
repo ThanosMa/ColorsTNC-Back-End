@@ -18,7 +18,7 @@ using TestWebApp.Dtos;
 
 namespace TestWebApp.Controllers
 {
-    [AllowAnonymous]
+    
     [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
     public class ColorFormulaController : ApiController
     {

@@ -27,6 +27,7 @@ namespace TestWebApp.Controllers.ApiControllers
         }
 
         // GET: api/ShopProduct
+        [AllowAnonymous]
         public IEnumerable<ShopProduct> GetShopProducts()
         {
             return unit.ShopProducts.GetAll();
@@ -34,6 +35,7 @@ namespace TestWebApp.Controllers.ApiControllers
 
         // GET: api/ShopProduct/5
         [ResponseType(typeof(ShopProduct))]
+        [AllowAnonymous]
         public IHttpActionResult GetShopProduct(int id)
         {
             ShopProduct shopProduct = unit.ShopProducts.GetById(id);
