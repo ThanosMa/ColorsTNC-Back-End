@@ -15,7 +15,8 @@ using RepositoryServices.Persistance;
 
 namespace TestWebApp.Controllers.ApiControllers
 {
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    //[EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    [Authorize(Roles = "Admin")]
     public class WarehouseProductController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -27,6 +28,8 @@ namespace TestWebApp.Controllers.ApiControllers
         }
 
         // GET: api/WarehouseProduct
+        
+        //[AllowAnonymous]
         public IEnumerable<WarehouseProduct> GetWarehouseProducts()
         {
             return unit.WarehouseProducts.GetAll();
@@ -99,7 +102,7 @@ namespace TestWebApp.Controllers.ApiControllers
         [ResponseType(typeof(WarehouseProduct))]
         public IHttpActionResult DeleteWarehouseProduct(int id)
         {
-            WarehouseProduct warehouseProduct = db.WarehouseProducts.Find(id);
+            WarehouseProduct warehouseProduct = unit.WarehouseProducts.GetById(id);
             if (warehouseProduct == null)
             {
                 return NotFound();

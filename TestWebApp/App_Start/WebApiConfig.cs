@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace TestWebApp
 {
@@ -24,7 +25,9 @@ namespace TestWebApp
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            config.EnableCors(true);
+            config.Filters.Add(new AuthorizeAttribute());
+            // config.EnableCors(true);
+            //config.EnableCors(new EnableCorsAttribute("http://localhost:4200", headers: "*", methods: "*"));
         }
     }
 }

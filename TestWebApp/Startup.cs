@@ -1,15 +1,29 @@
 ﻿using Microsoft.Owin;
+using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
+using System;
+using System.Threading.Tasks;
+using TestWebApp;
 
-[assembly: OwinStartupAttribute(typeof(TestWebApp.Startup))]
-namespace TestWebApp
+[assembly: OwinStartup(typeof(WebApiTest.Startup))]
+namespace WebApiTest
 {
-    public partial class Startup
+    public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            // Any connection or hub wire up and configuration should go here
-            app.MapSignalR();
+            // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
+            app.UseCors(CorsOptions.AllowAll);
+            OAuthAuthorizationServerOptions option = new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/token"),
+                Provider = new ApplicationOAuthProvider(),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
+                AllowInsecureHttp = true
+            };
+            app.UseOAuthAuthorizationServer(option);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
 }
