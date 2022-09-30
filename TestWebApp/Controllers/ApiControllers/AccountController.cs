@@ -12,7 +12,7 @@ using TestWebApp.Models;
 
 namespace TestWebApp.Controllers.ApiControllers
 {
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    //[EnableCors("*", "*", "GET,POST,PUT,DELETE")]
     public class AccountController : ApiController
     {
         

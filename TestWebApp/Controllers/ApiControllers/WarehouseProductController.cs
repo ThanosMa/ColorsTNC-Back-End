@@ -15,7 +15,8 @@ using RepositoryServices.Persistance;
 
 namespace TestWebApp.Controllers.ApiControllers
 {
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    //[EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    [Authorize(Roles = "Admin")]
     public class WarehouseProductController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -27,6 +28,8 @@ namespace TestWebApp.Controllers.ApiControllers
         }
 
         // GET: api/WarehouseProduct
+        
+        //[AllowAnonymous]
         public IEnumerable<WarehouseProduct> GetWarehouseProducts()
         {
             return unit.WarehouseProducts.GetAll();

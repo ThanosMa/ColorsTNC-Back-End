@@ -19,7 +19,7 @@ using TestWebApp.Dtos;
 namespace TestWebApp.Controllers
 {
     
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    //[EnableCors("*", "*", "GET,POST,PUT,DELETE")]
     public class ColorFormulaController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

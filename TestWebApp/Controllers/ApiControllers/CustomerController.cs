@@ -15,7 +15,8 @@ using RepositoryServices.Persistance;
 
 namespace TestWebApp.Controllers.ApiControllers
 {
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    //[EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    [Authorize(Roles = "Admin,Employee")]
     public class CustomerController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

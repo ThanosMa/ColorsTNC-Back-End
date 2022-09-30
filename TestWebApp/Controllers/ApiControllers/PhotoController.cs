@@ -16,7 +16,7 @@ using System.Web.Http.Description;
 
 namespace TestWebApp.Controllers.ApiControllers
 {
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    //[EnableCors("*", "*", "GET,POST,PUT,DELETE")]
     public class PhotoController : ApiController
     {
 

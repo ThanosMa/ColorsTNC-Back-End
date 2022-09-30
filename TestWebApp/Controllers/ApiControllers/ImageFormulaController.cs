@@ -15,7 +15,8 @@ using System.Web.Http.Description;
 
 namespace TestWebApp.Controllers.ApiControllers
 {
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    //[EnableCors("*", "*", "GET,POST,PUT,DELETE")]
+    [Authorize(Roles = "Admin,Employee")]
     public class ImageFormulaController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
